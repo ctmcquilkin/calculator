@@ -1,42 +1,54 @@
-//
-let n1 = 0;
-let n2 = 0;
-let operator = '';
+const numberButtons = document.querySelectorAll('[data-number]');
+const operationButtons = document.querySelectorAll('[data-operation]');
+const equalsButton = document.querySelector('[data-equals]');
+const deleteButton = document.querySelector('[data-delete]');
+const allClearButton = document.querySelector('[data-all-clear]');
+const previousOperandTextElement = document.querySelector('[data-previous-operand]');
+const currentOperandTextElement = document.querySelector('[data-current-operand]');
 
-const operate = function (operator, n1, n2) {
-    if (n1 === undefined || n2 === undefined) {
-        return 0;
-    };
-    switch(operator) {
-        case add:
-            add(n1, n2);
-            break;
-        case subtract:
-            subtract(n1, n2);
-            break
-        case multiply:
-            multiply(n1, n2);
-            break
-        case divide:
-            divide(n1, n2);
-            break
-        divide:
-            console.log('you forgot the operator');
+class Calculator {
+    constructor(previousOperandTextElement, currentOperandTextElement) {
+        this.previousOperandTextElement = previousOperandTextElement;
+        this.currentOperandTextElement = currentOperandTextElement;
+        this.clear();
     }
-};
 
-const add = function (n1, n2) {
-    return parseInt(n1 + n2);
-};
+    clear() {
+        this.currentOperand = ''
+        this.previousOperand = ''
+        this.operation = undefined
+    }
 
-const subtract = function (n1, n2) {
-    return parseInt(n1 - n2);
-};
+    delete() {
 
-const multiply = function (n1, n2) {
-    return parseInt(n1 * n2);
-};
+    }
 
-const divide = function (n1, n2) {
-    return parseInt(n1 / n2);
-};
+    appendNumber(number) {
+        if (number === '.' && this.currentOperand.includes('.')) return;
+        this.currentOperand = this.currentOperand.toString() + number.toString();
+
+    }
+
+    chooseOperation(operation) {
+
+    }
+
+    compute() {
+
+    }
+
+    updateDisplay() {
+        this.currentOperandTextElement.innerText = this.currentOperand;
+
+    }
+
+}
+
+const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement)
+
+numberButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        calculator.appendNumber(button.innerText);
+        calculator.updateDisplay();
+    })
+});
